@@ -2,30 +2,44 @@
 A Python number guessing game with levels and increasing difficulty.
 # Number Guessing Game 🎮
 
-A **Python number guessing game with levels and increasing difficulty**.  
-Guess the correct number to complete each level! As you level up, the number range increases, making the game more challenging.
+import random
 
-## How to Play
-1. Run the `number_guess_levels.py` file in Python.
-2. The game will tell you the range of numbers for the current level.
-3. Enter your guess:
-   - If your guess is too low, you’ll see “Too low! ⬆️”
-   - If your guess is too high, you’ll see “Too high! ⬇️”
-4. Guess the correct number to complete the level.
-5. After completing a level, you can choose to go to the next level. Each level increases the number range.
+print("🎮 Welcome to the Number Guessing Game with Levels! 🎯")
+print("You’ll start from Level 1 (1–10). Each level increases the range!\n")
 
-## Features
-- Level-based gameplay
-- Increasing difficulty with each level
-- Tracks number of attempts per level
-- Beginner-friendly Python game
+level = 1
+max_range = 10
 
-## Requirements
-- Python 3.x installed
+while True:
+    print(f"\n--- LEVEL {level} ---")
+    print(f"Guess the number between 1 and {max_range}")
 
-## How to Run
-1. Download the repository.
-2. Open terminal or command prompt in the repository folder.
-3. Run the game:
-   ```bash
-   python number_guess_levels.py
+    secret = random.randint(1, max_range)
+    attempts = 0
+
+    while True:
+        try:
+            guess = int(input("Enter your guess: "))
+        except ValueError:
+            print("❌ Please enter a number!")
+            continue
+
+        attempts += 1
+
+        if guess == secret:
+            print(f"🎉 Correct! You guessed it in {attempts} attempts!")
+            print(f"✅ Level {level} completed!\n")
+            break
+        elif guess < secret:
+            print("Too low! ⬆️")
+        else:
+            print("Too high! ⬇️")
+
+    next_level = input("Do you want to go to the next level? (yes/no): ").lower()
+    if next_level == "yes":
+        level += 1
+        max_range += 10
+    else:
+        print("\n🏁 Game Over! You reached Level", level)
+        print("Thanks for playing, legend! 💪")
+        break
